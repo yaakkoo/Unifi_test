@@ -127,4 +127,3 @@ exports.getToDo = async (req, res) => {
     }
 }
 
-}
