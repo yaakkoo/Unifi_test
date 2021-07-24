@@ -8,7 +8,7 @@ exports.addUser = async (req, res) => {
 
         res.status(200).json({
             user: user,
-            token : token
+            token: token
         })
     } catch (error) {
         return res.status(404).json({
@@ -111,6 +111,25 @@ exports.getToDo = async (req, res) => {
             }, {
             'todo.$': 1
         })
+        if (todo) {
+            return res.status(200).json({
+                todo: todo
+            })
+        } else {
+            return res.status(200).json({
+                msg: 'no such user'
+            })
+        }
+    } catch (error) {
+        return res.status(404).json({
+            error: error.message
+        })
+    }
+}
+
+exports.getAllToDo = async (req, res) => {
+    try {
+        let todo = await User.findOne({ _id: req.body.id }).select('todo -_id').populate('todo', 'details -_id')
         if (todo) {
             return res.status(200).json({
                 todo: todo
