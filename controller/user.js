@@ -127,21 +127,4 @@ exports.getToDo = async (req, res) => {
     }
 }
 
-exports.getAllToDo = async (req, res) => {
-    try {
-        let todo = await User.findOne({ _id: req.body.id }).select('todo -_id').populate('todo', 'details -_id')
-        if (todo) {
-            return res.status(200).json({
-                todo: todo
-            })
-        } else {
-            return res.status(200).json({
-                msg: 'no such user'
-            })
-        }
-    } catch (error) {
-        return res.status(404).json({
-            error: error.message
-        })
-    }
 }
